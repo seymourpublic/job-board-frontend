@@ -1,29 +1,39 @@
-// src/components/JobForm.js
+// JobForm.js
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  TextField,
+  Button,
+} from '@mui/material';
+import NavBar from './Navbar' // Import the NavBar component
 
 function JobForm() {
   const [formData, setFormData] = useState({
-    company: '',
     title: '',
+    company: '',
     description: '',
-    logo: '',
+    logoUrl: '',
     closingDate: '',
     emailAddress: '',
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Send a POST or PUT request to your API to create or update the job listing
-    axios.post('http://localhost:3000/jobs', formData)
+
+    // Send a POST request to create the job listing
+    axios
+      .post('/api/job-listings', formData) // Use the appropriate API endpoint
       .then((response) => {
-        console.log('Job listing created/updated:', response.data);
+        console.log('Job listing created:', response.data);
         // Redirect or perform other actions as needed
       })
       .catch((error) => {
-        console.error('Error creating/updating job listing:', error);
+        console.error('Error creating job listing:', error);
       });
   };
 
@@ -35,14 +45,82 @@ function JobForm() {
     });
   };
 
+
   return (
     <div>
-      <h1>Create/Edit Job Listing</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Form fields for company, title, description, logo, closingDate, and emailAddress */}
-        {/* Use input elements and controlled components */}
-        <button type="submit">Submit</button>
-      </form>
+      <NavBar /> {/* Include the NavBar component */}
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Create Job Listing
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Container>
+        <Typography variant="h4" component="div" mt={3}>
+          Create a New Job Listing
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Company"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="company"
+            value={formData.company}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Title"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Description"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Logo URL"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="logo"
+            value={formData.logo}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Closing Date"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            type="date"
+            name="closingDate"
+            value={formData.closingDate}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Email Address"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            name="emailAddress"
+            value={formData.emailAddress}
+            onChange={handleChange}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Create Listing
+          </Button>
+        </form>
+      </Container>
     </div>
   );
 }

@@ -1,46 +1,48 @@
-// src/components/LandingPage.js
-
+// LandingPage.js
 import React from 'react';
-import styled from 'styled-components';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import CardMedia from '@mui/material/CardMedia';
+import Navbar from './Navbar'; // Import the Navbar component
+import JobList from './JobList'; // Import the JobList component
+import heroImage from './resources/img/hero.jpg'
 
-const LandingPageContainer = styled.div`
-  background-color: #f5f5f5;
-  padding: 50px;
-  text-align: center;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-`;
-
-const Description = styled.p`
-  font-size: 1.25rem;
-  margin-bottom: 30px;
-`;
-
-const Button = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  font-size: 1rem;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0056b3;
+function getGreeting() {
+  const currentHour = new Date().getHours();
+  if (currentHour >= 5 && currentHour < 12) {
+    return 'Good morning!';
+  } else if (currentHour >= 12 && currentHour < 17) {
+    return 'Good afternoon!';
+  } else {
+    return 'Good evening!';
   }
-`;
+}
 
 function LandingPage() {
+  const cardMediaStyle = {
+    width: '100%', // Set the width to 100% to cover the entire container width
+    borderRadius: '8px',
+  };
   return (
-    <LandingPageContainer>
-      <Title>Welcome to IT Job Board</Title>
-      <Description>Find the perfect IT job for you. Start your career today!</Description>
-      <Button>Get Started</Button>
-    </LandingPageContainer>
+    <div>
+      <Navbar /> {/* Render the Navbar component */}
+      <Container maxWidth="md" sx={{ textAlign: 'center', mt: 4 }}>
+        <CardMedia
+          component="img"
+          alt="Job Portal Image"
+          height="300"
+          image={heroImage} // Use the imported variable here
+          sx={cardMediaStyle}
+        />
+        <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#333' }}>
+          {getGreeting()} Welcome to Career Spotlight
+        </Typography>
+        <Typography variant="body1" gutterBottom sx={{ color: '#666' }}>
+          Find your dream job with us.
+        </Typography>
+        <JobList /> {/* Display the list of jobs */}
+      </Container>
+    </div>
   );
 }
 
