@@ -1,13 +1,18 @@
+// src/components/JobList.js
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import JobListItem from './JobListItem'; // Import the JobListItem component
 
 function JobList() {
   const [jobListings, setJobListings] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // Fetch job listings from your API
-    axios.get('http://localhost:3000/jobs')
+    axios.get(`${apiUrl}/jobs`)
       .then((response) => {
+        console.log('API Response:', response.data);
         setJobListings(response.data); // Update the state with job listings data
       })
       .catch((error) => {
@@ -18,20 +23,13 @@ function JobList() {
   return (
     <div>
       <h1>Job Listings</h1>
-      <ul>
+      <div className="job-list">
         {jobListings.map((job) => (
-          <li key={job._id}>
-            <h2>{job.title}</h2>
-            <p>{job.company}</p>
-            <p>{job.description}</p>
-            <p>Closing Date: {new Date(job.closingDate).toLocaleDateString()}</p>
-            <p>Email: {job.emailAddress}</p>
-          </li>
+          <JobListItem key={job._id} job={job} /> /* Use the JobListItem component */
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
 export default JobList;
-

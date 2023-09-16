@@ -1,4 +1,3 @@
-// LandingPage.js
 import React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -21,25 +20,31 @@ function getGreeting() {
 function LandingPage() {
   const cardMediaStyle = {
     width: '100%', // Set the width to 100% to cover the entire container width
-    borderRadius: '8px',
+    borderRadius: '0px',
   };
   return (
     <div>
       <Navbar /> {/* Render the Navbar component */}
-      <Container maxWidth="md" sx={{ textAlign: 'center', mt: 4 }}>
+      <div>
         <CardMedia
-          component="img"
-          alt="Job Portal Image"
-          height="300"
-          image={heroImage} // Use the imported variable here
-          sx={cardMediaStyle}
-        />
-        <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#333' }}>
-          {getGreeting()} Welcome to Career Spotlight
-        </Typography>
-        <Typography variant="body1" gutterBottom sx={{ color: '#666' }}>
-          Find your dream job with us.
-        </Typography>
+            component="img"
+            alt="Job Portal Image"
+            height="300"
+            image={heroImage} // Use the imported variable here
+            sx={cardMediaStyle}
+          />
+        <Container maxWidth="100%" sx={{ textAlign: 'center', mt: 4 }}>
+          <Typography variant="h4" component="h1" gutterBottom sx={{ color: '#333' }}>
+            {getGreeting()} Welcome to Career Spotlight
+          </Typography>
+          <Typography variant="body1" gutterBottom sx={{ color: '#666' }}>
+            Find your dream job with us.
+          </Typography>
+
+        </Container>
+        
+      </div>
+      <Container maxWidth="100%" sx={{ textAlign: 'center', mt: 4 }}>
         <JobList /> {/* Display the list of jobs */}
       </Container>
     </div>

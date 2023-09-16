@@ -1,5 +1,3 @@
-// JobForm.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -13,6 +11,7 @@ import {
 import NavBar from './Navbar' // Import the NavBar component
 
 function JobForm() {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -27,7 +26,7 @@ function JobForm() {
 
     // Send a POST request to create the job listing
     axios
-      .post('/api/job-listings', formData) // Use the appropriate API endpoint
+      .post(`${apiUrl}/jobs`, formData) // Use the appropriate API endpoint
       .then((response) => {
         console.log('Job listing created:', response.data);
         // Redirect or perform other actions as needed

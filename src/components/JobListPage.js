@@ -1,21 +1,22 @@
-// JobListPage.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AppBar, Container, Toolbar, Typography, InputBase, Paper, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import JobCard from './JobCard';
+import Navbar from './Navbar';
 
 
 function JobListPage() {
     const [jobListings, setJobListings] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredJobListings, setFilteredJobListings] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL;
+
   
     useEffect(() => {
       // Fetch all job listings
       axios
-        .get('/api/job-listings') // Use the appropriate API endpoint
+        .get(`${apiUrl}/jobs`) // Use the appropriate API endpoint
         .then((response) => {
           setJobListings(response.data);
           setFilteredJobListings(response.data);
@@ -39,6 +40,7 @@ function JobListPage() {
 
   return (
     <div>
+      <Navbar />
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
